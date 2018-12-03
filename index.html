@@ -1,12 +1,5 @@
 <!DOCTYPE html>
-<!--
-	Estudiante: Juan Carlos Oyuela
-	Curso: Visual Analytics
-	Proyecto Final: ¡Realmente puedes aprender sobre sexualidad a través de un MOOC!
-	Fecha: 15/11/2018
-	Licencia: MIT
-	-->
-<html lang="en">
+<html lang="es">
 	<header>
 		<meta charset="utf-8">
 		<title>VA - Proyecto Final</title>
@@ -16,6 +9,7 @@
 		<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" language="javascript" src="https://d3js.org/d3.v5.min.js"></script>
 		<script type="text/javascript" language="javascript" src="https://d3js.org/d3-format.v1.min.js"></script>
+		<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
 
 		<!-- Style -->
@@ -24,13 +18,70 @@
 	</header>
 	<body>
 		<div id="divContent" align="center">
+			<div id="divTitle">
+				¡Realmente puedes aprender sobre sexualidad a través de un MOOC!
+			</div>
 			<div id="divHeader" align="left" >
-				<h1>¡Realmente puedes aprender sobre sexualidad a través de un MOOC!</h1>
 				<p>Estudiantes: Vladimir E. Cuevas, Juan Carlos Oyuela y Andres Segura Tinoco</p>
 				<p>Curso: Visual Analytics</p>
 				<p>Proyecto Final</p>
-				<p>Fecha: 15/11/2018</p>
+				<p>Fecha: 12/04/2018</p>
 				<p>Licencia: <a target="_blank" href="https://github.com/ansegura7/VA-Proyecto-Final-MOOC/blob/master/LICENSE">MIT</a></p>
+			</div>
+
+			<div id="divMain" align="center" >
+
+				<div class="divText">
+					<img src="img/main-banner.jpg" />
+				</div>
+
+				<!-- Chart 1: Ingresos de extranjeros a Colombia por genero -->
+				<div class="divText" >
+					<p><b>Tarea Princpal 1</b>: identificar las características que indican que el MOOC es efectivo, y que realmente mejora las competencias y capacidades para hablar de “Sexualidad” en los participantes, aunque no cuente con un profesor de forma presencial (Identify – Features).</p>
+				</div>
+				<div class="divText" align="left">
+					<label for="cmbGender">Sexo:</label>
+					<select id="cmbGender" class="cmbFilter" onchange="ast.changeFilter()">
+					</select>
+
+					<label for="cmbHours">Horas Dedicadas:</label>
+					<select id="cmbHours" class="cmbFilter" onchange="ast.changeFilter()">
+					</select>
+
+					<label for="cmbCountry">País Residencia:</label>
+					<select id="cmbCountry" class="cmbFilter" onchange="ast.changeFilter()">
+					</select>
+
+					<label for="cmbEduLevel">Nivel Educativo:</label>
+					<select id="cmbEduLevel" class="cmbFilter" style="margin:0px" onchange="ast.changeFilter()">
+					</select>
+				</div>
+				<div style="position: relative;" >
+					<div class="divChartTitle" >Expectativas de los Estudiantes Antes vs Después del MOOC</div>
+					<select id="cmbMSCurves" class="cmbFilter" style="margin:0px; position: absolute; top:7px; right:0px;" onchange="ast.changeFilter()">
+						<option id="0">All</option>
+						<option id="1">Average</option>
+						<option id="2">Real</option>
+					</select>
+					<div id="divPt1Content" style="position: relative;">
+						<svg id="svgPt1Bars"  class="svgChart" style="float:left"></svg>
+						<svg id="svgPt1Lines" class="svgChart" style="float:right"></svg>
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+
+				<!-- Chart 1: Ingresos de extranjeros a Colombia por genero -->
+				<div class="divText" >
+					<p><b>Tarea Secundaria 4</b>: Encontrar las épocas o rangos de fechas de mayor inscripción de estudiantes, con el fin de fortalecer y enfocar hacia determinadas poblaciones las campañas de marketing del curso, de tal manera que se logre aumentar el índice de participación anual (Locate - Outliers).</p>
+				</div>
+				<div style="position: relative;" >
+					<div class="divChartTitle" >Rango de Fechas Inscripciones</div>
+					<select id="cmbMSYear" class="cmbFilter" style="margin:0px; position: absolute; top:7px; right:0px;" onchange="ast.createSecondaryCharts()">
+					</select>
+					<div id="divSt4Content" style="position: relative; width:1000px;">
+						<svg id="svgSt4Lines" class="svgChart" style="width:1000px;"></svg>
+					</div>
+				</div>
 			</div>
 
 			<div id="divMain" align="center" >
@@ -38,95 +89,65 @@
 				<div class="divText">
 					<!--img src="img/main-banner.jpg" /-->
 				</div>
-				<div align="center"><img src="imagenEx15msex.jpg" width="476" height="298" alt="" title="" /></div>
 				<!-- Chart 1: Ingresos de extranjeros a Colombia por genero -->
 				<div class="divText" >
 					<p><b>Tarea Principal 2</b>: Descubrir la distribución de las variables demográficas de los estudiantes que completan el curso, para identificar que comunidades demuestran mayor interés en realizar y terminar del curso (Discover - Distributions).</p>
+					<p><b>Distribución por sexo</b>: A pesar de que en principio se pensaba que el balance de hombres y mujeres participantes en el curso era similar, e incluso, que la población masculina podría llegar a ser mayor, hemos detectado que son <b>las mujeres</b> quienes mas se interesan por los contenidos del MOOC, y no solamente por curiosear, son las mas juiciosas para completar las actividades del curso.</p>
 				</div>
 				<div id="divPt1Content" style="position: relative;">
 					<div class='tableauPlaceholder' id='viz1543778276942' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;VI&#47;VIZ_JC_MOOC_Sexualidad&#47;VIZ1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='VIZ_JC_MOOC_Sexualidad&#47;VIZ1' /><param name='tabs' value='no' /><param name='toolbar' value='no' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;VI&#47;VIZ_JC_MOOC_Sexualidad&#47;VIZ1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1543778276942');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='800px';vizElement.style.height='827px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 				</div>
-				<div id="divPt1Content" style="position: relative;">
-					<div style="clear:both;"></div>
+			</div>
+			<div id="divContent" align="center">
+				<div id="divHeader" align="left" >
+					<h1>!Hagamos un poco de ZOOM a la demografía¡</h1>
 				</div>
+				<div class='tableauPlaceholder' id='viz1543808212329' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;VI&#47;VIZ_JC_MOOC_Sexualidad&#47;VIZ2&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='VIZ_JC_MOOC_Sexualidad&#47;VIZ2' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;VI&#47;VIZ_JC_MOOC_Sexualidad&#47;VIZ2&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1543808212329');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1000px';vizElement.style.height='827px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+
+				<div class='tableauPlaceholder' id='viz1543809929026' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;VI&#47;VIZ_JC_MOOC_Sexualidad&#47;VIZ3&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='VIZ_JC_MOOC_Sexualidad&#47;VIZ3' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;VI&#47;VIZ_JC_MOOC_Sexualidad&#47;VIZ3&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1543809929026');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1000px';vizElement.style.height='827px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 			</div>
 
-			<div id="divReadme" align="center">
-				
-				<div class="divText" align="left" >
-					<h1>Readme</h1>
-
-					<h3>Datos del Proyecto – What</h3>
-					<p><b>Descripción</b>: El dataset muestra el consolidado del registro de obras protegidas por el Derecho de Autor realizado por solicitantes colombianos en el Exterior, en el 2 trimestre del 2018. Los datos están actualizados hasta el 10 Julio del 2018.</p>
-					<p>Los datos provienen de los Datos Abiertos de Colombia <a target="_blank" href="https://www.datos.gov.co/Cultura/Registro-de-obras-por-Colombianos-en-el-Exterior-2/ags6-6cmc/data">www.datos.gov.co</a> y son del tipo Table, sin embargo, en la  presente visualización se procesan los datos en memoria, para convertirlos en un dataset del tipo <b>Network</b>, que contiene las siguientes variables (attributes):</p>
-					<ul>
-						<li>Items (Nodes): categorical, para los nodos Persona, Ciudad y País.</li>
-						<li>Enlaces (Links): categorical, para las relaciones Persona-Ciudad y Ciudad-País.</li>
-						<li>Cantidad (Attribute): ordered, quantitative, sequencial para el peso de los nodos y de los enlaces.</li>
-						<li>Tipo (Attribute): categorical, y puede ser Persona, Ciudad o País.</li>
-					</ul>
-
-					<h3>Objetivos del Proyecto - Why</h3>
-					<p><b>Tarea Principal</b></p>
-					<p>TP1: Crear una visualización web que permita localizar (<b>locate</b>) los caminos o las rutas (<b>paths</b>) entre los distintos autores que registran obras en un mismo país (pero en distintas ciudades).</p>
-					<p><b>Tareas Secundarias</b></p>
-					<p>TS1: Explorar (<b>explore</b>) la topología (<b>topology</b>) de las ciudades o países, con respecto a la cantidad de autores que registran obras en el extranjero.</p>
-					<p>TS2: Generar (<b>derive</b>) y contabilizar (<b>summarize</b>) la cantidad de registros de obras (copyrights) que hace un autor en una ciudad en el extranjero (<b>feature</b>).</p>
-
-					<h3>Marcas y Canales – How</h3>
-					<ul>
-						<li>Marcas: puntos para los nodos (Persona, Ciudad y País), líneas para los enlaces.</li>
-						<li>Canal - Color Hue: cada nodo tendrá un color que permitirá identificar el tipo de nodo: si es una persona, una ciudad o un país.</li>
-						<li>Canal - Posición: los nodos tienen una posición espacial en X, determinada por el peso de sus enlaces, la cual también está influenciada por una simulación de fuerzas.</li>
-						<li>Reduce: Aggregate.</li>
-						<li>Manipulate: Select. Se puede seleccionar un nodo, y se resaltarán los nodos vecinos con sus respectivos enlaces.</li>
-					</ul>
-					
-					<h3>Insights</h3>
-					<ul>
-						<li>Los autores Luis German Perdomo y Monica Maria Palacio, están relacionados (tienen un camino en común), ya que ambos registraron obras en USA, respectivamente en las ciudades Orlando y Miami.</li>
-						<li>Jaime Enrique Gutiérrez es el autor colombiano, que más obras registró en el extranjero (Melbourne, Australia) en el segundo trimestre del 2018 (aproximadamente 200).</li>
-						<li>La ciudad donde más distintos autores (20) colombianos registraron obras es Caracas.</li>
-						<li>Estados Unidos es el país con más distintas ciudades (5), en donde autores colombianos registraron obras.</li>
-					</ul>
-
-					<h3>Tecnologías Usadas</h3>
-					<p>Para el desarrollo del proyecto se usaron las siguientes tecnologías:</p>
-					<ul>
-						<li>Se usó Sublime Text 3 y Notepad++ como IDEs de desarrollo.</li>
-						<li>HTML y CSS para maquetar el sitio web.</li>
-						<li>Javascript y el framework D3.js v5, para crear el gráfico de Red con sus respectivas interacciones.</li>
-						<li>GitHub para almacenar el código de la Viz, y de los datos usados. A continuación, el enlace a dicho repositorio principal del proyecto: <a target="_blank" href="https://github.com/ansegura7/VA-Proyecto-Final-MOOC">https://github.com/ansegura7</a></li>
-					</ul>
-
-					<h3>Prerrequisitos</h3>
-					<p>El proyecto depende del acceso a los datos almacenados en el repositorio previamente mencionado y a la disponibilidad del servicio de GitHub Pages, que permite el acceso por medio de un Navegador a la página principal proyecto.</p>
-					<p>Además, al usar los frameworks D3.js v5, depende de que dicha librería esté disponible para ser usada on-line.</p>
-					
-					<h3>Uso</h3>
-					<ul>
-						<li>La visualización se cargará completa al ingresar su URL en un navegador web.</li>
-						<li>Se puede seleccionar el tipo de alineación de los datos, en el combo-box <b>Alineación</b>. Esta interacción, afectará al orden de los nodos en el gráfico de redes.</li>
-						<li>Se pueden mover (arrastrar y soltar) los nodos, para localizar y explorar los caminos y las topologías de la red.</li>
-						<li>Se puede hacer click sobre los nodos, y se resaltarán los nodos vecinos de dicho nodo.</li>
-					</ul>
-					
-					<h3>Autores</h3>
-					<p>El autor de los datos es el Gobierno Nacional y el sitio web Datos Abiertos de Colombia. Los datos están actualizados hasta el 10 de Julio de 2018.</p>
-					<p>El autor de la visualización es Andrés Segura Tinoco, CE 201711582.</p>
-
-					<h3>Screenshot</h3>
-					<p>En el siguiente repositorio, se encuentran algunos screenshots del proyecto:</p>
-					<a target="_blank" href="https://github.com/ansegura7/VA-Proyecto-Final-MOOC/tree/master/screenshots">GitHub Screenshots</a>
-
-					<h3>Links de Interés</h3>
-					<p>Video: <a target="_blank" href="https://youtu.be/eyuMdS1vsHs">Youtube</a>.</p>
-					<p>Presentación: <a target="_blank" href="https://docs.google.com/presentation/d/1x1_JTG_tSodmnutDEWoK45hb_9SEWEkujc5xJK9GxjU/edit?usp=sharing">Google Slides</a>.</p>
-					<p>Tweet: <a target="_blank" href="https://twitter.com/SeguraAndres7/status/1057263951753461761">https://twitter.com/SeguraAndres7</a>.</p>
-				</div>
-
+			<div class="divTitleTasks">¿Y cuando abordar a las poblaciones mas interesadas?</div>
+			<div class="divText">				
+				<p>Hemos encontrado un comportamiento particular con el volumen de inscripciones durante los 3 años que lleva el curso en línea, en donde principalmente el volumen de inscritos a venido descendiendo, sin embargo existen unos puntos en el tiempo donde se disparan las inscripciones, como es el caso del 10 de junio, fecha inmediatamente posterior a una publicación en revista, evidenciando la efectividad de estas campañas.</p>
 			</div>
 
+			<div id="calView">
+				<script src="js/app.js" type="module"></script>
+			</div>
+
+			<div id="thirdTask">
+				<hr>
+				<div id="thirdTaskTitle"></div>
+				<div id='controls'>
+					<div id="third_task_views">
+						<div id="views_title">Vistas</div>
+						<form id="currentView">
+							<span id="radioView"><input type='radio' id="performance" name="mode" checked><span id="performanceRadioText"></span></span><br style="line-height:22px;">
+					        <span id="radioView"><input type='radio' id="popularity" name="mode"><span id="popularityRadioText"></span></span><br style="line-height:22px;">
+					        <span id="radioView"><input type='radio' id="feedback" name="mode"><span id="feedbackRadioText"></span></span><br style="line-height:22px;">
+					        <span id="radioView"><input type='radio' id="gender" name="mode"><span id="genderRadioText"></span>     
+					    </form>
+					</div>
+				    <div id="third_task_options">
+					    <div id="options_title">Opciones</div>
+						<form id="dimensions">
+					        <input type='radio' id="stacked" name="mode" checked>Apiladas por total de interacciones</input>
+					        <br style="line-height:22px;">
+					        <input type='radio' id="normalized" name="mode">Apiladas - Normalizado</input>
+					    </form>
+					</div>
+					<div id="third_task_order">
+						<div id="order_title">Orden</div>
+							<form id="checkBoxDimensions">
+					        <input type="checkbox" id="isOrdered" name="ordered" checked><span id="orderCBText"></span>
+					    	</form>
+					</div>
+			    </div>
+			    <br>
+			    <script src="js/stackedBarChartNormalizedHorizontalCustom.js" type="module"></script>
+			</div>
+			
 			<script type="text/javascript">
 		        // Run Page Script
 				$(document).ready(function() {
